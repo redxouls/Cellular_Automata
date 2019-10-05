@@ -1,9 +1,18 @@
-def cell(x,y):
-    cell =[]
+def cell(x,y,k):
+    cell=[]
     for i in range(x):
-        cell.append([])
-        for j in range(y):
-                cell[i].append(0)
+            cell.append([])
+            for j in range(y):
+                    cell[i].append(0)
+    if k!="0":
+        k = k + ".txt"
+        f = open(k,'r').read()
+        width, height = int(f[0]+f[1]),int(f[2]+f[3])
+        if width > x or height > y:
+            return cell
+        for i in range(width):
+            for j in range(height):
+                cell[i][j] = int(f[i*width+j+4])
     return cell
 
 def alive(cell,xi,yi,x,y):
@@ -30,7 +39,7 @@ def alive(cell,xi,yi,x,y):
             return False
 
 def evolve(cellin,x,y): 
-    cellout = cell(x,y)
+    cellout = cell(x,y,"0")
     cellin = tuple(cellin)
     for i in range(x):
         for j in range(y):

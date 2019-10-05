@@ -2,10 +2,9 @@ import pygame as pg
 import time,os
 import CA_func as c 
 import pgset
-
-
-x = int(input("width"))
-y = int(input("height"))
+k = input("File name:")
+x = int(input("width:"))
+y = int(input("height:"))
 
 if x >= 97:
     x = 96
@@ -21,7 +20,7 @@ bg,screen = temp[0],temp[1]
 
 clock = pg.time.Clock()
 root = True
-cell1 = c.cell(x,y)
+cell1 = c.cell(x,y,k)
 
 while(root):
     sub1 = True
@@ -39,7 +38,7 @@ while(root):
                    sub1 = False
             elif event.type == pg.MOUSEBUTTONDOWN and (sub1 or root):
                 cell2 = pgset.clicked(cell1,x,y)
-                btemp = pgset.button(x,y,root,sub1,sub2,1,reset)
+                btemp = pgset.button(x,y,cell1,root,sub1,sub2,1,reset)
                 root, sub1,sub2 = btemp[0],btemp[1],btemp[2]
         for i in range(x):
             for j in range(y):
@@ -51,7 +50,7 @@ while(root):
         cell1 = cell2
         screen.blit(bg, (0,0))
         pg.display.update()
-    sub1 = True
+        
     while sub2 and root:
         clock.tick(30)
         for event in pg.event.get():
@@ -61,7 +60,7 @@ while(root):
                 if event.key == pg.K_ESCAPE:
                    sub2 = False
             elif event.type == pg.MOUSEBUTTONDOWN:
-                btemp = pgset.button(x,y,root,sub1,sub2,2,reset)
+                btemp = pgset.button(x,y,cell1,root,sub1,sub2,2,reset)
                 root, sub1,sub2,reset = btemp[0],btemp[1],btemp[2],btemp[3]
         for i in range(x):
             for j in range(y):
@@ -75,7 +74,7 @@ while(root):
         screen.blit(bg, (0,0))
         pg.display.update()
     if reset:
-        cell1 = c.cell(x,y)
+        cell1 = c.cell(x,y,"0")
     if root:
         sub1 ,sub2 = True, True
 pg.quit()   

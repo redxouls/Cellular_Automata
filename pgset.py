@@ -13,10 +13,12 @@ def Init(x,y):
         for j in range(y):
             pg.draw.rect(bg,(255,255,255),[i*20,j*20,19,19],0)
             pg.draw.rect(bg,(211,211,211),[i*20,j*20,20,20],1)
-    l = int(x*20/3)
+    l = int(x*20/4)
     pg.draw.rect(bg,(205,92,92),[0,y*20,l,20],0) 
     pg.draw.rect(bg,(255,255,0),[l,y*20,l,20],0)
     pg.draw.rect(bg,(50,205,50),[l*2,y*20,l,20],0)
+    pg.draw.rect(bg,(30,144,255),[l*3,y*20,l,20],0)
+
     return bg,screen
 
 def clicked(cell,x,y):
@@ -30,19 +32,28 @@ def clicked(cell,x,y):
             cell[x1][y1] = 1
     return cell
 
-def button(x,y,root,sub1,sub2,order,reset):
+def button(x,y,root,cell,sub1,sub2,order,reset):
     mouse = pg.mouse.get_pos()
     if(mouse[1] >=20*y):
-        x1 = mouse[0] //int(20*x/3)
+        x1 = mouse[0] //int(20*x/4)
         if x1 == 0 and order == 1:
             sub1 = False
         elif order == 2:
             sub2 = False
         if x1 == 1:
             reset = True
+            sub1 = False
             sub2 = False
         if x1 == 2 :
             sub1 = False
             sub2 = False
             root = False
+        if x1 ==3:
+            output = input("Ouput file name :") + ".txt"
+            with open(output, "w") as text_file:
+                text_file.write(str(x))
+                text_file.write(str(y))
+                for s in cell:
+                    for t in s:
+                        text_file.write(str(t))
     return root,sub1,sub2,reset
