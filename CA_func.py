@@ -1,38 +1,22 @@
-def Rule():
-    return True
-def cell(n):
+def cell(x,y):
     cell =[]
-    for i in range(n):
+    for i in range(x):
         cell.append([])
-        for j in range(n):
+        for j in range(y):
                 cell[i].append(0)
     return cell
 
-def cell_out(cell):  
-    n = len(cell)
-    cell_out = []
-    for k in range(n):
-        prin_out = ""
-        for i in range(n):
-            if cell[k][i]:
-                prin_out += "* "
-            else:
-                prin_out += " "
-        cell_out.append(prin_out)
-    return cell_out
-
-def alive(cell,x,y):
+def alive(cell,xi,yi,x,y):
     count = 0
-    n = len(cell)
     for i in range(-1,2):
         for j in range(-1,2):
-            x1 = x+i
-            y1 = y+j
-            if x1<0 or y1<0 or x1>n-1 or y1>n-1 or (i==j and i==0):
+            x1 = xi+i
+            y1 = yi+j
+            if x1<0 or y1<0 or x1>x-1 or y1>y-1 or (i==j and i==0):
                 abc=1
             else:
                 count += cell[x1][y1]
-    if cell[x][y]==1:
+    if cell[xi][yi]==1:
         if count<2:
             return False
         elif count==2 or count<=3:
@@ -45,15 +29,14 @@ def alive(cell,x,y):
         else: 
             return False
 
-def evolve(inc): 
-    n = len(inc)
-    out = cell(n)
+def evolve(inc,x,y): 
+    out = cell(x,y)
     inc = tuple(inc)
-    for i in range(n):
-        for j in range(n):
-            if alive(inc,i,j):
+    for i in range(x):
+        for j in range(y):
+            if alive(inc,i,j,x,y):
                 out[i][j] = 1
             else:
-                out[i][j]= 0
+                out[i][j] = 0
     return out
   
