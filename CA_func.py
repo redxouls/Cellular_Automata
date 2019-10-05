@@ -29,14 +29,14 @@ def alive(cell,xi,yi,x,y):
         else: 
             return False
 
-def evolve(inc,x,y): 
-    out = cell(x,y)
-    inc = tuple(inc)
+def evolve(cellin,x,y): 
+    cellout = cell(x,y)
+    cellin = tuple(cellin)
     for i in range(x):
         for j in range(y):
-            if alive(inc,i,j,x,y):
-                out[i][j] = 1
+            if alive(cellin,i,j,x,y):
+                cellout[i][j] = 1
             else:
-                out[i][j] = 0
-    return out
+                cellout[i][j] = 0
+    return cellout
   
