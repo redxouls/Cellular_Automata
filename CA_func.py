@@ -1,24 +1,25 @@
-def cell(x,y,k):
+def cell(x,y,k,initial_pos):
     cell=[]
     for i in range(x):
             cell.append([])
             for j in range(y):
                     cell[i].append(0)
     if k!="0":
+        ix , iy = initial_pos[0], initial_pos[1]
         k = k + ".txt"
         f = open(k,'r').readlines()
-        if len(f)>y+1:
+        if len(f)+iy>y+1:
             return cell
         else:
             for i in f:
-                if len(i)>x+1:
+                if len(i)+ix>x+1:
                     return cell
             for i in range(len(f)):
                 for j in range(len(f[i])):
                     if f[i][j] == 'O':
-                        cell[i][j] = 1
+                        cell[i+ix][j+iy] = 1
                     elif f[i][j] == ".":
-                        cell[i][j] = 0
+                        cell[i+ix][j+iy] = 0
     return cell
 
 def alive(cell,xi,yi,x,y):
@@ -45,7 +46,7 @@ def alive(cell,xi,yi,x,y):
             return False
 
 def evolve(cellin,x,y): 
-    cellout = cell(x,y,"0")
+    cellout = cell(x,y,"0",[])
     cellin = tuple(cellin)
     for i in range(x):
         for j in range(y):
