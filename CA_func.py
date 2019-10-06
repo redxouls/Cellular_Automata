@@ -6,21 +6,22 @@ def cell(x,y,k,initial_pos):
                     cell[i].append(0)
     if k!="0":
         ix , iy = initial_pos[0], initial_pos[1]
+        print(ix,iy)
         k = k + ".txt"
         f = open(k,'r').readlines()
-        if len(f)+iy>y+1:
+        inmax = 0
+        for i in f:
+            if len(i)>inmax:
+                inmax = len(i)
+        if len(f)+iy>=len(cell)-1 or inmax+ix >(len(cell[0])-1):
+            print(len(f)+iy,iy,len(f))
             return cell
         else:
-            for i in f:
-                if len(i)+ix>x+1:
-                    return cell
             for i in range(len(f)):
                 for j in range(len(f[i])):
                     if f[i][j] == 'O':
-                        cell[i+ix][j+iy] = 1
-                    elif f[i][j] == ".":
-                        cell[i+ix][j+iy] = 0
-    return cell
+                        cell[j+ix][i+iy] = 1
+    return cell 
 
 def alive(cell,xi,yi,x,y):
     count = 0

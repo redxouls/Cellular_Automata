@@ -3,6 +3,14 @@ import time,os
 import CA_func as c 
 import pgset
 k = input("File name:")
+if k != "0":
+    ktemp = k + '.txt'
+    f = open(ktemp,'r').readlines()
+    inmax = 0
+    for i in f:
+        if len(i)>inmax:
+            inmax = len(i)
+    print("x:",inmax,"y:",len(f),)
 initial_pos=[int(input("Iitial x:")),int(input("Initial y:"))]
 csize = int(input("cell size"))
 x = int(input("width:"))
