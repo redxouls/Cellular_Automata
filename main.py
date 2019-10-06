@@ -38,7 +38,7 @@ while(root):
                    sub1 = False
             elif event.type == pg.MOUSEBUTTONDOWN and (sub1 or root):
                 cell2 = pgset.clicked(cell1,x,y)
-                btemp = pgset.button(x,y,cell1,root,sub1,sub2,1,reset)
+                btemp = pgset.button(x,y,root,cell1,sub1,sub2,1,reset)
                 root, sub1,sub2 = btemp[0],btemp[1],btemp[2]
         for i in range(x):
             for j in range(y):

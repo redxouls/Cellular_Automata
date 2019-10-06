@@ -6,13 +6,19 @@ def cell(x,y,k):
                     cell[i].append(0)
     if k!="0":
         k = k + ".txt"
-        f = open(k,'r').read()
-        width, height = int(f[0]+f[1]),int(f[2]+f[3])
-        if width > x or height > y:
+        f = open(k,'r').readlines()
+        if len(f)>y+1:
             return cell
-        for i in range(width):
-            for j in range(height):
-                cell[i][j] = int(f[i*width+j+4])
+        else:
+            for i in f:
+                if len(i)>x+1:
+                    return cell
+            for i in range(len(f)):
+                for j in range(len(f[i])):
+                    if f[i][j] == 'O':
+                        cell[i][j] = 1
+                    elif f[i][j] == ".":
+                        cell[i][j] = 0
     return cell
 
 def alive(cell,xi,yi,x,y):

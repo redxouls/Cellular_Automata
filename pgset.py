@@ -50,10 +50,13 @@ def button(x,y,root,cell,sub1,sub2,order,reset):
             root = False
         if x1 ==3:
             output = input("Ouput file name :") + ".txt"
-            with open(output, "w") as text_file:
-                text_file.write(str(x))
-                text_file.write(str(y))
-                for s in cell:
-                    for t in s:
-                        text_file.write(str(t))
+            print(cell)
+            with open(output,"w") as text_file:
+                for i in range(x):
+                    for j in range(y):
+                        if cell[i][j]:
+                            text_file.write("O")
+                        else:
+                            text_file.write(".")
+                    text_file.write("\n")
     return root,sub1,sub2,reset
