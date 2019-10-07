@@ -5,13 +5,13 @@ import pgset
 k = input("File name:")
 if k != "0":
     ktemp = k + '.txt'
-    f = open(ktemp,'r').readlines()
+    f = open(ktemp,'r').readlines() 
     inmax = 0
     for i in f:
         if len(i)>inmax:
             inmax = len(i)
     print("x:",inmax,"y:",len(f),)
-initial_pos=[int(input("Iitial x:")),int(input("Initial y:"))]
+initial_pos=[int(input("Initial x:")),int(input("Initial y:"))]
 csize = int(input("cell size"))
 x = int(input("width:"))
 y = int(input("height:"))
@@ -19,10 +19,10 @@ if csize <5:
     csize = 5
 elif csize>50:
     csize = 20
-if csize*x >= 1600:
-    x = int(1600/csize)
-if csize*y >= 900:
-    y = int(900/csize)
+if csize*x >= 1920:
+    x = int(1920/csize)
+if csize*y >= 1000:
+    y = int(1000/csize)
 if(csize*x<100 or csize*y <100):
     x, y ,csize =20, 20 ,20
 
