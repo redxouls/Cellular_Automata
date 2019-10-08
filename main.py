@@ -54,7 +54,6 @@ while(root):
                 cell2 = pgset.clicked(cell1,x,y,csize)
                 btemp = pgset.button(x,y,root,cell1,sub1,sub2,1,reset,csize)
                 root, sub1,sub2 = btemp[0],btemp[1],btemp[2]
-        print(type(cell1))
         for i in range(x):
             for j in range(y):
                 if (cell1[i][j]):
