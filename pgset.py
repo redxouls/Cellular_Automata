@@ -1,4 +1,5 @@
 import pygame as pg
+
 def Init(csize,x,y):
     global bg,screen
     pg.init()
@@ -8,10 +9,9 @@ def Init(csize,x,y):
     
     bg = pg.Surface(screen.get_size())
     bg = bg.convert()
-    bg.fill((0,0,0))
+    bg.fill((255,255,255))
     for i in range(x):
         for j in range(y):
-            pg.draw.rect(bg,(255,255,255),[i*csize,j*csize,csize-1,csize-1],0)
             pg.draw.rect(bg,(211,211,211),[i*csize,j*csize,csize,csize],1)
     l = int(x*csize/4)
     pg.draw.rect(bg,(205,92,92),[0,y*csize,l,20],0) 

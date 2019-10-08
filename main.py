@@ -15,8 +15,8 @@ initial_pos=[int(input("Initial x:")),int(input("Initial y:"))]
 csize = int(input("cell size"))
 x = int(input("width:"))
 y = int(input("height:"))
-if csize <5:
-    csize = 5
+if csize <3:
+    csize = 3
 elif csize>50:
     csize = 20
 if csize*x >= 1920:
@@ -33,7 +33,8 @@ bg,screen = temp[0],temp[1]
 
 clock = pg.time.Clock()
 root = True
-cell1 = c.cell(x,y,k,initial_pos)
+ctemp = c.cell(x,y,k,initial_pos)
+cell1,cellmode = ctemp[0],ctemp[1]
 initial_pos = [0,0]
 while(root):
     sub1 = True
@@ -53,13 +54,13 @@ while(root):
                 cell2 = pgset.clicked(cell1,x,y,csize)
                 btemp = pgset.button(x,y,root,cell1,sub1,sub2,1,reset,csize)
                 root, sub1,sub2 = btemp[0],btemp[1],btemp[2]
+        print(type(cell1))
         for i in range(x):
             for j in range(y):
                 if (cell1[i][j]):
                     pg.draw.rect(bg, (0,0,255),[csize*i,csize*j, csize-1, csize-1], 0)
                 else:
                     pg.draw.rect(bg, (255,255,255),[csize*i,csize*j, csize-1, csize-1], 0)
-
         cell1 = cell2
         screen.blit(bg, (0,0))
         pg.display.update()
@@ -75,19 +76,13 @@ while(root):
             elif event.type == pg.MOUSEBUTTONDOWN:
                 btemp = pgset.button(x,y,cell1,root,sub1,sub2,2,reset,csize)
                 root, sub1,sub2,reset = btemp[0],btemp[1],btemp[2],btemp[3]
-        for i in range(x):
-            for j in range(y):
-                if (cell1[i][j]):
-                    pg.draw.rect(bg, (0,0,255),[csize*i,csize*j, csize-1, csize-1], 0)
-                else:
-                    pg.draw.rect(bg, (255,255,255),[csize*i,csize*j, csize-1, csize-1], 0)
-
-        cell2 = c.evolve(cell1,x,y)
+                
+        cell2,cellmode ,bg = c.evolve(cell1,cellmode,bg,csize,x,y)
         cell1 = cell2
         screen.blit(bg, (0,0))
         pg.display.update()
     if reset:
-        cell1 = c.cell(x,y,"0",[])
+        cell1 = c.cell(x,y,"0",[])[0]
     if root:
         sub1 ,sub2 = True, True
 pg.quit()   

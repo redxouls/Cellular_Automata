@@ -1,9 +1,13 @@
+import pygame as pg
 def cell(x,y,k,initial_pos):
     cell=[]
+    cellmode = []
     for i in range(x):
             cell.append([])
+            cellmode.append([])
             for j in range(y):
                     cell[i].append(0)
+                    cellmode[i].append(0)
     if k!="0":
         ix , iy = initial_pos[0], initial_pos[1]
         print(ix,iy)
@@ -21,7 +25,11 @@ def cell(x,y,k,initial_pos):
                 for j in range(len(f[i])):
                     if f[i][j] == 'O':
                         cell[j+ix][i+iy] = 1
-    return cell 
+                        for k in range(-1,2):
+                            for l in range(-1,2):
+                                cellmode[j+ix+k][i+iy+l] = 1
+
+    return cell, cellmode
 
 def alive(cell,xi,yi,x,y):
     count = 0
@@ -33,6 +41,8 @@ def alive(cell,xi,yi,x,y):
                 abc=1
             else:
                 count += cell[x1][y1]
+    if count+cell[xi][yi] == 0:
+        return False
     if cell[xi][yi]==1:
         if count<2:
             return False
@@ -46,14 +56,21 @@ def alive(cell,xi,yi,x,y):
         else: 
             return False
 
-def evolve(cellin,x,y): 
-    cellout = cell(x,y,"0",[])
+def evolve(cellin,cellmode,bg,csize,x,y): 
+    cellout = cell(x,y,"0",[])[0]
+    ncellmode = cell(x,y,"0",[])[0]
     cellin = tuple(cellin)
     for i in range(x):
         for j in range(y):
-            if alive(cellin,i,j,x,y):
-                cellout[i][j] = 1
-            else:
-                cellout[i][j] = 0
-    return cellout
+            if cellmode[i][j]:
+                if alive(cellin,i,j,x,y):
+                    cellout[i][j] = 1
+                    pg.draw.rect(bg, (0,0,255),[csize*i,csize*j, csize-1, csize-1], 0)
+                    for k in range(-1,2):
+                        for l in range(-1,2):
+                            ncellmode[i+k][j+l] = 1
+                else:
+                    cellout[i][j] = 0
+                    pg.draw.rect(bg, (255,255,255),[csize*i,csize*j, csize-1, csize-1], 0)
+    return cellout, ncellmode, bg
   
